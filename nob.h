@@ -172,14 +172,14 @@
 #            define __BSD_VISIBLE 1
 #        endif
 #    endif
-#    ifdef __APPLE__
-#        include <mach-o/dyld.h>
-#    endif
-#    if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
+#    include <sys/types.h>
+#    if defined(__FreeBSD__)
 #        include <sys/param.h>
 #        include <sys/sysctl.h>
 #    endif
-#    include <sys/types.h>
+#    ifdef __APPLE__
+#        include <mach-o/dyld.h>
+#    endif
 #    include <sys/wait.h>
 #    include <sys/stat.h>
 #    include <unistd.h>
@@ -1305,7 +1305,7 @@ NOBDEF int nob_nprocs(void)
         if (n > 0) return (int)n;
     }
 #endif
-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
+#if defined(__FreeBSD__)
     {
 #if defined(CTL_HW) && defined(HW_NCPU)
         int mib[2] = {CTL_HW, HW_NCPU};
